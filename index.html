@@ -13,10 +13,11 @@
       --text: #e6edf3;
       --muted: #94a3b8;
       --accent: #f59e0b;
-      --accent-dim: rgba(245, 158, 11, 0.16);
+      --accent-dim: rgba(245, 158, 11, 0.18);
       --digit-fg: #fbbf24;
       --strict: #38bdf8;
       --davinci: #f43f5e;
+      --ok: #10b981;
     }
 
     * { box-sizing: border-box; }
@@ -30,7 +31,7 @@
     }
 
     header {
-      padding: 1rem 1.5rem;
+      padding: 0.95rem 1.5rem;
       background: var(--panel);
       border-bottom: 1px solid var(--border);
       display: flex;
@@ -49,31 +50,37 @@
 
     header p {
       margin: 0.15rem 0 0;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       color: var(--muted);
     }
 
     .status-pill {
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 0.78rem;
-      padding: 0.35rem 0.7rem;
+      padding: 0.38rem 0.75rem;
       border-radius: 999px;
-      background: var(--panel-alt);
-      border: 1px solid var(--border);
-      color: var(--muted);
+      background: rgba(244, 63, 94, 0.18);
+      border: 1px solid var(--davinci);
+      color: #fda4af;
+    }
+
+    .status-pill.ready {
+      background: rgba(16, 185, 129, 0.14);
+      border-color: var(--ok);
+      color: #6ee7b7;
     }
 
     .layout {
       display: grid;
-      grid-template-columns: 320px 1fr 310px;
+      grid-template-columns: 330px 1fr 310px;
       gap: 1rem;
       padding: 1rem 1.25rem;
-      max-width: 1680px;
+      max-width: 1700px;
       margin: 0 auto;
     }
 
     @media (max-width: 1200px) {
-      .layout { grid-template-columns: 300px 1fr; }
+      .layout { grid-template-columns: 320px 1fr; }
       .ledger-panel { grid-column: 1 / -1; }
     }
 
@@ -90,7 +97,7 @@
 
     .card h2 {
       margin: 0 0 0.75rem;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--muted);
@@ -98,14 +105,22 @@
 
     .control-group {
       margin-bottom: 0.9rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid rgba(45, 55, 72, 0.55);
+    }
+
+    .control-group:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
     }
 
     .control-group label {
       display: flex;
       justify-content: space-between;
-      font-size: 0.82rem;
+      font-size: 0.81rem;
       color: var(--muted);
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.32rem;
     }
 
     .mode-switch {
@@ -124,10 +139,9 @@
       border-radius: 6px;
       background: transparent;
       color: var(--muted);
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.82rem;
       cursor: pointer;
-      transition: all 0.15s ease;
     }
 
     .mode-btn.active-strict {
@@ -137,20 +151,18 @@
     }
 
     .mode-btn.active-davinci {
-      background: rgba(244, 63, 94, 0.2);
+      background: rgba(244, 63, 94, 0.22);
       color: #fda4af;
       outline: 1px solid var(--davinci);
     }
 
-    .mode-desc {
-      font-size: 0.76rem;
+    .sub-note {
+      font-size: 0.75rem;
       color: var(--muted);
-      margin-top: 0.4rem;
-      min-height: 2.2em;
+      margin-top: 0.38rem;
     }
 
     input[type="number"],
-    input[type="text"],
     textarea {
       width: 100%;
       background: var(--bg);
@@ -164,15 +176,24 @@
 
     textarea {
       resize: vertical;
-      min-height: 62px;
+      min-height: 60px;
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       text-transform: uppercase;
     }
 
+    .dial-box {
+      margin-top: 0.65rem;
+      padding: 0.55rem 0.65rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+    }
+
     input[type="range"] {
       width: 100%;
-      margin-top: 0.35rem;
+      margin: 0.25rem 0 0.1rem;
       accent-color: var(--accent);
+      cursor: pointer;
     }
 
     .row-2 {
@@ -187,7 +208,7 @@
       gap: 0.5rem;
       font-size: 0.8rem;
       color: var(--muted);
-      margin-top: 0.45rem;
+      margin-top: 0.5rem;
       cursor: pointer;
     }
 
@@ -199,7 +220,7 @@
 
     .btn {
       flex: 1;
-      padding: 0.5rem 0.65rem;
+      padding: 0.52rem 0.65rem;
       border-radius: 6px;
       border: 1px solid var(--border);
       background: var(--panel-alt);
@@ -209,9 +230,32 @@
       cursor: pointer;
     }
 
-    .btn:hover { border-color: var(--accent); color: var(--accent); }
+    .btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-build {
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      border-radius: 7px;
+      border: 1px solid var(--ok);
+      background: rgba(16, 185, 129, 0.2);
+      color: #6ee7b7;
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn-build:hover {
+      background: rgba(16, 185, 129, 0.32);
+      color: #fff;
+    }
 
     .btn-accent {
+      width: 100%;
       background: var(--accent-dim);
       border-color: var(--accent);
       color: var(--accent);
@@ -245,7 +289,6 @@
       border-radius: 3px;
       background: #141923;
       color: #cbd5e1;
-      position: relative;
     }
 
     .cell.is-digit {
@@ -351,11 +394,11 @@
       <h1>THE π VINCI CODE</h1>
       <p>Base-36 π Equidistant Letter Sequence (ELS) &amp; Ramsey Theory Explorer</p>
     </div>
-    <div class="status-pill" id="engineStatus">Computing Base-36 π…</div>
+    <div class="status-pill" id="engineStatus">Script Not Loaded — Check Copy/Paste or Open in Browser</div>
   </header>
 
   <main class="layout">
-    <!-- CONTROLS -->
+    <!-- PARAMETERS -->
     <section class="card">
       <h2>Parameters</h2>
 
@@ -365,7 +408,7 @@
           <button type="button" id="btnStrict" class="mode-btn active-strict">Strict Mode</button>
           <button type="button" id="btnDaVinci" class="mode-btn">Da Vinci Mode</button>
         </div>
-        <div class="mode-desc" id="modeDesc">
+        <div class="sub-note" id="modeDesc">
           Exact Base-36 matches only (A–Z and 0–9 match themselves literally; zero wildcards).
         </div>
         <label class="checkbox-row">
@@ -377,21 +420,31 @@
       <div class="control-group">
         <div class="row-2">
           <div>
-            <label for="inpWidth">Width (W) <span id="lblW">24</span></label>
+            <label for="inpWidth">Grid Width (W) <span>5–60</span></label>
             <input type="number" id="inpWidth" min="5" max="60" value="24" />
           </div>
           <div>
-            <label for="inpHeight">Height (H) <span id="lblH">18</span></label>
+            <label for="inpHeight">Grid Height (H) <span>5–60</span></label>
             <input type="number" id="inpHeight" min="5" max="60" value="18" />
           </div>
         </div>
-        <input type="range" id="rngWidth" min="5" max="60" value="24" title="Sweep grid width W to alter ELS skip distances" />
+
+        <div class="dial-box">
+          <label for="rngWidth">
+            <span>Live ELS Skip-Dial (Sweeps W)</span>
+            <strong id="lblDialW" style="color: var(--accent);">W = 24</strong>
+          </label>
+          <input type="range" id="rngWidth" min="5" max="60" value="24" />
+          <div class="sub-note">
+            Slide to sweep column width W live and watch ELS words appear or vanish.
+          </div>
+        </div>
       </div>
 
       <div class="control-group">
         <label for="inpOffset">
           <span>Start at π Base-36 Digit #</span>
-          <span>Max: 10,000</span>
+          <span>1–10,000</span>
         </label>
         <input type="number" id="inpOffset" min="1" max="10000" value="1" />
         <div class="btn-row">
@@ -406,17 +459,19 @@
           <span>Comma / space separated</span>
         </label>
         <textarea id="inpTargets">PI, CODE, GRAIL, TRUTH, SECRET, 2026, 666</textarea>
-        <div class="btn-row">
-          <button type="button" class="btn btn-accent" id="btnSharpshooter" title="Scan W = 5..60 at this offset and pick the width with the most matches">
-            Texas Sharpshooter: Auto-Tune W
-          </button>
-        </div>
+      </div>
+
+      <div class="control-group">
+        <button type="button" class="btn-build" id="btnBuild">Build Matrix &amp; Scan π</button>
+        <button type="button" class="btn btn-accent" id="btnSharpshooter">
+          Texas Sharpshooter: Auto-Tune Best Width W
+        </button>
       </div>
     </section>
 
-    <!-- GRID VIEWPORT -->
+    <!-- MATRIX VIEWPORT -->
     <section class="card">
-      <h2 id="gridTitle">Base-36 Matrix (3.53I5AB8P5F…)</h2>
+      <h2 id="gridTitle">Base-36 Matrix</h2>
       <div class="grid-wrapper">
         <div id="piGrid" class="pi-grid"></div>
       </div>
@@ -447,6 +502,9 @@
 
   <script>
     (() => {
+      const elStatus = document.getElementById("engineStatus");
+      elStatus.textContent = "Computing 20,000 Base-36 π digits…";
+
       const CACHE_DIGITS = 20000;
       const MAX_OFFSET = 10000;
       const PALETTE = [
@@ -460,7 +518,27 @@
       let focusedHitIndex = -1;
       let currentHits = [];
 
-      // Exact Machin's Formula in BigInt scaled by 36^(N + guard)
+      const btnStrict = document.getElementById("btnStrict");
+      const btnDaVinci = document.getElementById("btnDaVinci");
+      const modeDesc = document.getElementById("modeDesc");
+      const chkLettersOnly = document.getElementById("chkLettersOnly");
+      const inpWidth = document.getElementById("inpWidth");
+      const inpHeight = document.getElementById("inpHeight");
+      const rngWidth = document.getElementById("rngWidth");
+      const lblDialW = document.getElementById("lblDialW");
+      const inpOffset = document.getElementById("inpOffset");
+      const btnResetOffset = document.getElementById("btnResetOffset");
+      const btnRandOffset = document.getElementById("btnRandOffset");
+      const inpTargets = document.getElementById("inpTargets");
+      const btnBuild = document.getElementById("btnBuild");
+      const btnSharpshooter = document.getElementById("btnSharpshooter");
+      const gridTitle = document.getElementById("gridTitle");
+      const piGrid = document.getElementById("piGrid");
+      const statObserved = document.getElementById("statObserved");
+      const statExpected = document.getElementById("statExpected");
+      const skipInfo = document.getElementById("skipInfo");
+      const matchList = document.getElementById("matchList");
+
       function computePiBase36(numDigits) {
         const guard = 12;
         const scale = 36n ** BigInt(numDigits + guard);
@@ -482,31 +560,8 @@
         }
 
         const piScaled = 16n * atanInv(5n) - 4n * atanInv(239n);
-        const str = piScaled.toString(36).toUpperCase();
-        return str.slice(1, 1 + numDigits); // Fractional base-36 digits after "3."
+        return piScaled.toString(36).toUpperCase().slice(1, 1 + numDigits);
       }
-
-      const elStatus = document.getElementById("engineStatus");
-      const btnStrict = document.getElementById("btnStrict");
-      const btnDaVinci = document.getElementById("btnDaVinci");
-      const modeDesc = document.getElementById("modeDesc");
-      const chkLettersOnly = document.getElementById("chkLettersOnly");
-      const inpWidth = document.getElementById("inpWidth");
-      const inpHeight = document.getElementById("inpHeight");
-      const rngWidth = document.getElementById("rngWidth");
-      const lblW = document.getElementById("lblW");
-      const lblH = document.getElementById("lblH");
-      const inpOffset = document.getElementById("inpOffset");
-      const btnResetOffset = document.getElementById("btnResetOffset");
-      const btnRandOffset = document.getElementById("btnRandOffset");
-      const inpTargets = document.getElementById("inpTargets");
-      const btnSharpshooter = document.getElementById("btnSharpshooter");
-      const gridTitle = document.getElementById("gridTitle");
-      const piGrid = document.getElementById("piGrid");
-      const statObserved = document.getElementById("statObserved");
-      const statExpected = document.getElementById("statExpected");
-      const skipInfo = document.getElementById("skipInfo");
-      const matchList = document.getElementById("matchList");
 
       function clamp(val, min, max, fallback) {
         const n = parseInt(val, 10);
@@ -538,9 +593,7 @@
       function charMatches(gridCh, targetCh, useWildcards) {
         if (gridCh === targetCh) return true;
         if (!useWildcards) return false;
-        const targetIsLetter = targetCh >= "A" && targetCh <= "Z";
-        const gridIsDigit = gridCh >= "0" && gridCh <= "9";
-        return targetIsLetter && gridIsDigit;
+        return (targetCh >= "A" && targetCh <= "Z") && (gridCh >= "0" && gridCh <= "9");
       }
 
       const DIRS_ALL = [
@@ -573,8 +626,7 @@
 
                 let ok = true;
                 for (let i = 0; i < L; i++) {
-                  const ch = slice[(r + dr * i) * W + (c + dc * i)];
-                  if (!charMatches(ch, word[i], useWildcards)) {
+                  if (!charMatches(slice[(r + dr * i) * W + (c + dc * i)], word[i], useWildcards)) {
                     ok = false;
                     break;
                   }
@@ -583,12 +635,10 @@
                 if (ok) {
                   const cells = [];
                   let actual = "";
-                  let wildCount = 0;
                   for (let i = 0; i < L; i++) {
                     const idx = (r + dr * i) * W + (c + dc * i);
                     const ch = slice[idx];
                     const isWild = ch !== word[i];
-                    if (isWild) wildCount++;
                     actual += ch;
                     cells.push({ idx, isWild });
                   }
@@ -600,7 +650,6 @@
                     c: c + 1,
                     arrow,
                     skip: skip > 0 ? `+${skip}` : `${skip}`,
-                    wildCount,
                     cells,
                     color
                   });
@@ -612,7 +661,6 @@
         return hits;
       }
 
-      // Exact Linearity of Expectation E[Hits] across all valid grid placements
       function computeExpectedHits(W, H, targets, useWildcards, lettersOnly) {
         let totalExp = 0;
         for (const word of targets) {
@@ -630,7 +678,7 @@
             if (lettersOnly) {
               prob *= isLetter ? (1 / 26) : 0;
             } else if (useWildcards && isLetter) {
-              prob *= 11 / 36; // Matches exact letter + 10 wildcard digits
+              prob *= 11 / 36;
             } else {
               prob *= 1 / 36;
             }
@@ -640,23 +688,23 @@
         return totalExp;
       }
 
-      function getActiveStream() {
-        return chkLettersOnly.checked ? lettersOnlyPi : rawPi36;
-      }
-
-      function render() {
+      function buildMatrix(normalizeInputs = false) {
         if (!rawPi36) return;
 
         const W = clamp(inpWidth.value, 5, 60, 24);
         const H = clamp(inpHeight.value, 5, 60, 18);
         const offset = clamp(inpOffset.value, 1, MAX_OFFSET, 1);
-        lblW.textContent = W;
-        lblH.textContent = H;
-        rngWidth.value = W;
 
-        const stream = getActiveStream();
-        const startIdx = offset - 1;
-        const slice = stream.slice(startIdx, startIdx + W * H);
+        if (normalizeInputs) {
+          inpWidth.value = W;
+          inpHeight.value = H;
+          inpOffset.value = offset;
+        }
+        rngWidth.value = W;
+        lblDialW.textContent = `W = ${W}`;
+
+        const stream = chkLettersOnly.checked ? lettersOnlyPi : rawPi36;
+        const slice = stream.slice(offset - 1, offset - 1 + W * H);
         const targets = parseTargets(inpTargets.value);
 
         currentHits = scanSlice(slice, W, H, targets, daVinciMode);
@@ -664,8 +712,193 @@
 
         const expected = computeExpectedHits(W, H, targets, daVinciMode, chkLettersOnly.checked);
         statObserved.textContent = currentHits.length;
-        statExpected.textContent = expected < 0.01 && expected > 0
+        statExpected.textContent = expected > 0 && expected < 0.01
           ? expected.toExponential(2)
           : expected.toFixed(2);
 
-        skipInfo.textContent = `ELS Skips → Horiz: ±1 | Vert: ±${W} \vert{} Diag: ±${W - 1
+        skipInfo.textContent = `ELS Skips → Horiz: ±1 | Vert: ±${W} | Diag: ±${W - 1}, ±${W + 1}`;
+        gridTitle.textContent = `${chkLettersOnly.checked ? "Letters-Only Base-36 π" : "Full Base-36 π"} — #${offset.toLocaleString()} to #${(offset + slice.length - 1).toLocaleString()} (${W}×${H})`;
+
+        const cellMeta = new Array(slice.length);
+        for (const hit of currentHits) {
+          for (const { idx, isWild } of hit.cells) {
+            if (!cellMeta[idx]) cellMeta[idx] = { color: hit.color, isWild };
+            else if (isWild) cellMeta[idx].isWild = true;
+          }
+        }
+
+        const focusedSet = new Set(
+          focusedHitIndex >= 0 ? currentHits[focusedHitIndex].cells.map(c => c.idx) : []
+        );
+
+        piGrid.style.gridTemplateColumns = `repeat(${W}, 24px)`;
+        const frag = document.createDocumentFragment();
+
+        for (let i = 0; i < slice.length; i++) {
+          const ch = slice[i];
+          const div = document.createElement("div");
+          let cls = "cell";
+          if (ch >= "0" && ch <= "9") cls += " is-digit";
+
+          const meta = cellMeta[i];
+          if (meta) {
+            cls += " hit";
+            if (meta.isWild) cls += " wildcard-used";
+            div.style.backgroundColor = meta.color;
+          }
+          if (focusedSet.has(i)) cls += " focused";
+
+          div.className = cls;
+          div.textContent = ch;
+          div.title = `π Index #${offset + i} (Row ${Math.floor(i / W) + 1}, Col ${(i % W) + 1})`;
+          frag.appendChild(div);
+        }
+        piGrid.replaceChildren(frag);
+
+        const listFrag = document.createDocumentFragment();
+        if (currentHits.length === 0) {
+          const empty = document.createElement("li");
+          empty.style.color = "var(--muted)";
+          empty.style.fontSize = "0.8rem";
+          empty.textContent = "No hits at this W/offset. Drag the Skip-Dial, click Auto-Tune W, or toggle Da Vinci Mode.";
+          listFrag.appendChild(empty);
+        } else {
+          currentHits.forEach((hit, idx) => {
+            const li = document.createElement("li");
+            li.className = "match-item" + (idx === focusedHitIndex ? " active" : "");
+
+            const left = document.createElement("span");
+            const badge = document.createElement("span");
+            badge.className = "badge";
+            badge.style.backgroundColor = hit.color;
+            badge.textContent = hit.word;
+            left.appendChild(badge);
+
+            if (hit.actual !== hit.word) {
+              const wild = document.createElement("span");
+              wild.style.marginLeft = "0.45rem";
+              wild.style.color = "var(--muted)";
+              wild.textContent = `(${hit.actual})`;
+              left.appendChild(wild);
+            }
+
+            const right = document.createElement("span");
+            right.style.fontFamily = "ui-monospace, monospace";
+            right.style.color = "var(--muted)";
+            right.textContent = `R${hit.r}C${hit.c} ${hit.arrow} (${hit.skip})`;
+
+            li.append(left, right);
+            li.addEventListener("click", () => {
+              focusedHitIndex = focusedHitIndex === idx ? -1 : idx;
+              buildMatrix(false);
+            });
+            listFrag.appendChild(li);
+          });
+        }
+        matchList.replaceChildren(listFrag);
+      }
+
+      function setMode(isDaVinci) {
+        daVinciMode = isDaVinci;
+        if (isDaVinci && chkLettersOnly.checked) {
+          chkLettersOnly.checked = false;
+        }
+        focusedHitIndex = -1;
+        btnStrict.className = "mode-btn" + (!isDaVinci ? " active-strict" : "");
+        btnDaVinci.className = "mode-btn" + (isDaVinci ? " active-davinci" : "");
+        modeDesc.textContent = isDaVinci
+          ? "Wildcards ON: Base-36 digits (0–9) bridge any letter A–Z while still matching literal dates."
+          : "Exact Base-36 matches only (A–Z and 0–9 match themselves literally; zero wildcards).";
+        buildMatrix(false);
+      }
+
+      btnStrict.addEventListener("click", () => setMode(false));
+      btnDaVinci.addEventListener("click", () => setMode(true));
+
+      chkLettersOnly.addEventListener("change", () => {
+        if (chkLettersOnly.checked && daVinciMode) {
+          setMode(false);
+          return;
+        }
+        focusedHitIndex = -1;
+        buildMatrix(false);
+      });
+
+      rngWidth.addEventListener("input", () => {
+        inpWidth.value = rngWidth.value;
+        lblDialW.textContent = `W = ${rngWidth.value}`;
+        focusedHitIndex = -1;
+        buildMatrix(false);
+      });
+
+      inpWidth.addEventListener("input", () => {
+        const w = clamp(inpWidth.value, 5, 60, 24);
+        rngWidth.value = w;
+        lblDialW.textContent = `W = ${w}`;
+        focusedHitIndex = -1;
+        buildMatrix(false);
+      });
+
+      [inpHeight, inpOffset, inpTargets].forEach(el => {
+        el.addEventListener("change", () => {
+          focusedHitIndex = -1;
+          buildMatrix(true);
+        });
+      });
+
+      btnBuild.addEventListener("click", () => {
+        focusedHitIndex = -1;
+        buildMatrix(true);
+      });
+
+      btnResetOffset.addEventListener("click", () => {
+        inpOffset.value = 1;
+        focusedHitIndex = -1;
+        buildMatrix(true);
+      });
+
+      btnRandOffset.addEventListener("click", () => {
+        inpOffset.value = Math.floor(Math.random() * MAX_OFFSET) + 1;
+        focusedHitIndex = -1;
+        buildMatrix(true);
+      });
+
+      btnSharpshooter.addEventListener("click", () => {
+        const H = clamp(inpHeight.value, 5, 60, 18);
+        const offset = clamp(inpOffset.value, 1, MAX_OFFSET, 1);
+        const stream = chkLettersOnly.checked ? lettersOnlyPi : rawPi36;
+        const targets = parseTargets(inpTargets.value);
+
+        let bestW = clamp(inpWidth.value, 5, 60, 24);
+        let maxHits = -1;
+
+        for (let w = 5; w <= 60; w++) {
+          const slice = stream.slice(offset - 1, offset - 1 + w * H);
+          const count = scanSlice(slice, w, H, targets, daVinciMode).length;
+          if (count > maxHits) {
+            maxHits = count;
+            bestW = w;
+          }
+        }
+        inpWidth.value = bestW;
+        focusedHitIndex = -1;
+        buildMatrix(true);
+      });
+
+      setTimeout(() => {
+        try {
+          const t0 = performance.now();
+          rawPi36 = computePiBase36(CACHE_DIGITS);
+          lettersOnlyPi = rawPi36.replace(/[0-9]/g, "");
+          const ms = Math.round(performance.now() - t0);
+          elStatus.className = "status-pill ready";
+          elStatus.textContent = `Ready: 20,000 Base-36 Digits (${ms} ms) — 3.${rawPi36.slice(0, 8)}…`;
+          buildMatrix(true);
+        } catch (err) {
+          elStatus.textContent = `Engine Error: ${err.message}`;
+        }
+      }, 20);
+    })();
+  </script>
+</body>
+</html>
